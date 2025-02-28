@@ -68,9 +68,33 @@ class Library //creating a new class with multiple properties
     {
         this.books.forEach(books => console.log(books.getDetails()));
     }
+    lendBook(borrowerId, isbn) //task 4: adding this method to the Library class
+    { 
+        let book = this.books.find((bk) => bk.isbn === isbn); //Finding book by isbn using 
+        let borrower = this.borrowers.find((br) => br.borrowerId === borrowerId); //Finding borrower
+        if (!book) 
+            { 
+                console.log(`No book found with ISBN: ${isbn}!`); 
+                return;
+            } if (!borrower) 
+            { console.log(`No borrower found with borrowerId: ${borrowerId}!`); 
+            return;
+            } else 
+            {
+            book.updateCopies(1); //Adding using updateCopies()
+            borrower.returnBook(book); 
+            console.log("Book returned successfully."); 
+            }
+     };
 }
-//test data:
+//task 3: test data :
 const library = new Library();
 library.addBooks(book1);
 library.listBooks();
 // Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 4"
+//task 4: test data:
+library.lendBook(201, 123456);
+console.log(book1.getDetails());
+// Expected output: "Title: The Great Gatsby, Author: F. Scott Fitzgerald, ISBN: 123456, Copies: 3"
+console.log(borrower1.borrowedBooks);
+// Expected output: ["The Great Gatsby"]
